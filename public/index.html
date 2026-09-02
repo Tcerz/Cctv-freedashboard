@@ -60,14 +60,20 @@
       <label>Nama Kamera</label>
       <input id="camName" placeholder="Contoh: Kisaran - Pintu Masuk" />
 
-      <label>Merk / Preset Path RTSP</label>
+      <label>Merk</label>
       <select id="camBrand" onchange="applyBrandPreset()">
-        <option value="Hikvision" data-path="/Streaming/Channels/101">Hikvision</option>
-        <option value="Dahua" data-path="/cam/realmonitor?channel=1&subtype=0">Dahua</option>
-        <option value="CP Plus" data-path="/cam/realmonitor?channel=1&subtype=0">CP Plus</option>
-        <option value="Uniview" data-path="/media/video1">Uniview</option>
-        <option value="ONVIF Generic" data-path="/onvif1">Generic ONVIF (onvif1)</option>
-        <option value="Custom" data-path="">Custom (isi manual)</option>
+        <option value="Hikvision">Hikvision</option>
+        <option value="Dahua">Dahua</option>
+        <option value="CP Plus">CP Plus</option>
+        <option value="Uniview">Uniview</option>
+        <option value="ONVIF Generic">Generic ONVIF</option>
+        <option value="Custom">Custom (isi path manual)</option>
+      </select>
+
+      <label>Tipe Stream</label>
+      <select id="camStreamType" onchange="applyBrandPreset()">
+        <option value="sub" selected>Sub Stream (disarankan untuk grid, hemat bandwidth)</option>
+        <option value="main">Main Stream (resolusi tinggi, lebih berat)</option>
       </select>
 
       <label>IP Address</label>

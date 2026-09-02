@@ -174,14 +174,26 @@ document.getElementById('btnAddCamera').onclick = () => {
   document.getElementById('camUser').value = '';
   document.getElementById('camPass').value = '';
   document.getElementById('camBrand').value = 'Hikvision';
-  document.getElementById('camPath').value = '/Streaming/Channels/101';
+  document.getElementById('camStreamType').value = 'sub';
+  applyBrandPreset();
   openModal('modalCamera');
 };
 
+// Preset path RTSP per merk, dipisah main stream (resolusi tinggi) dan sub stream (ringan, cocok untuk grid)
+const RTSP_PRESETS = {
+  'Hikvision':    { main: '/Streaming/Channels/101', sub: '/Streaming/Channels/102' },
+  'Dahua':        { main: '/cam/realmonitor?channel=1&subtype=0', sub: '/cam/realmonitor?channel=1&subtype=1' },
+  'CP Plus':      { main: '/cam/realmonitor?channel=1&subtype=0', sub: '/cam/realmonitor?channel=1&subtype=1' },
+  'Uniview':      { main: '/media/video1', sub: '/media/video2' },
+  'ONVIF Generic':{ main: '/onvif1', sub: '/onvif2' },
+  'Custom':       { main: '', sub: '' }
+};
+
 function applyBrandPreset() {
-  const sel = document.getElementById('camBrand');
-  const path = sel.selectedOptions[0].dataset.path;
-  document.getElementById('camPath').value = path;
+  const brand = document.getElementById('camBrand').value;
+  const streamType = document.getElementById('camStreamType').value;
+  const preset = RTSP_PRESETS[brand] || RTSP_PRESETS['Custom'];
+  document.getElementById('camPath').value = preset[streamType];
 }
 
 async function editCamera(id) {
