@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCTV Dashboard - Monitoring Depot Tangki</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>🛢️ Depot CCTV</h1>
+        <button id="btnAddGroup" class="btn-icon" title="Tambah Group Depot">+ Depot</button>
+      </div>
+      <div id="groupList" class="group-list">
+        <div class="group-item active" data-id="all">
+          <span>📁 Semua Kamera</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h2 id="currentGroupTitle">Semua Kamera</h2>
+        <div class="topbar-actions">
+          <label>Grid:
+            <select id="gridSize">
+              <option value="2">2 kolom</option>
+              <option value="3" selected>3 kolom</option>
+              <option value="4">4 kolom</option>
+              <option value="6">6 kolom</option>
+            </select>
+          </label>
+          <button id="btnAddCamera" class="btn-primary">+ Tambah Kamera</button>
+        </div>
+      </header>
+      <div id="grid" class="grid grid-3"></div>
+    </main>
+  </div>
+
+  <!-- Modal Tambah Group -->
+  <div id="modalGroup" class="modal hidden">
+    <div class="modal-box">
+      <h3>Tambah Group Depot</h3>
+      <input id="groupNameInput" placeholder="Contoh: Depot Kisaran" />
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal('modalGroup')">Batal</button>
+        <button class="btn-primary" onclick="submitGroup()">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tambah/Edit Kamera -->
+  <div id="modalCamera" class="modal hidden">
+    <div class="modal-box">
+      <h3 id="cameraModalTitle">Tambah Kamera</h3>
+      <input type="hidden" id="cameraIdInput" />
+      <label>Nama Kamera</label>
+      <input id="camName" placeholder="Contoh: Kisaran - Pintu Masuk" />
+
+      <label>Merk / Preset Path RTSP</label>
+      <select id="camBrand" onchange="applyBrandPreset()">
+        <option value="Hikvision" data-path="/Streaming/Channels/101">Hikvision</option>
+        <option value="Dahua" data-path="/cam/realmonitor?channel=1&subtype=0">Dahua</option>
+        <option value="CP Plus" data-path="/cam/realmonitor?channel=1&subtype=0">CP Plus</option>
+        <option value="Uniview" data-path="/media/video1">Uniview</option>
+        <option value="ONVIF Generic" data-path="/onvif1">Generic ONVIF (onvif1)</option>
+        <option value="Custom" data-path="">Custom (isi manual)</option>
+      </select>
+
+      <label>IP Address</label>
+      <input id="camIp" placeholder="192.168.1.10" />
+
+      <label>Port RTSP</label>
+      <input id="camPort" placeholder="554" value="554" />
+
+      <label>Username</label>
+      <input id="camUser" placeholder="admin" />
+
+      <label>Password</label>
+      <input id="camPass" type="password" placeholder="password" />
+
+      <label>RTSP Path</label>
+      <input id="camPath" placeholder="/Streaming/Channels/101" />
+      <small class="hint">URL akhir: rtsp://user:pass@ip:port/path</small>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal('modalCamera')">Batal</button>
+        <button class="btn-primary" onclick="submitCamera()">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
