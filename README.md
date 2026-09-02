@@ -64,13 +64,23 @@ password CCTV depot Anda.
 
 ## Preset Path RTSP per Merk (bisa disesuaikan)
 
-| Merk           | Path default                              |
-|----------------|--------------------------------------------|
-| Hikvision      | `/Streaming/Channels/101`                  |
-| Dahua / CP Plus| `/cam/realmonitor?channel=1&subtype=0`     |
-| Uniview        | `/media/video1`                            |
-| Generic ONVIF  | `/onvif1`                                  |
-| Custom         | isi manual sesuai dokumentasi vendor       |
+Form tambah kamera punya 2 dropdown: **Merk** dan **Tipe Stream**
+(Sub Stream / Main Stream). Path RTSP terisi otomatis dari kombinasi
+keduanya.
+
+| Merk           | Sub Stream (disarankan)                    | Main Stream                                |
+|----------------|----------------------------------------------|---------------------------------------------|
+| Hikvision      | `/Streaming/Channels/102`                    | `/Streaming/Channels/101`                    |
+| Dahua / CP Plus| `/cam/realmonitor?channel=1&subtype=1`       | `/cam/realmonitor?channel=1&subtype=0`       |
+| Uniview        | `/media/video2`                              | `/media/video1`                              |
+| Generic ONVIF  | `/onvif2`                                    | `/onvif1`                                    |
+| Custom         | isi manual sesuai dokumentasi vendor         | isi manual sesuai dokumentasi vendor         |
+
+**Kenapa default-nya Sub Stream:** dashboard ini menampilkan banyak kamera
+sekaligus dalam grid, jadi resolusi rendah (sub stream) sudah cukup dan jauh
+lebih hemat bandwidth WAN — terutama penting kalau di depot yang sama juga
+ada operator lain yang menonton via iVMS (biasanya pakai main stream).
+Pakai Main Stream hanya kalau ingin lihat detail satu kamera secara close-up.
 
 Jika path default tidak cocok dengan unit kamera Anda, cek manual/label di
 DVR/NVR terkait, atau tanyakan ke vendor yang memasang — pola path RTSP-nya
